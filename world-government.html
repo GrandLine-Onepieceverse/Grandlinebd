@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Government - Grandline Bangladesh</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* World Government page specific styles */
+        .world-government-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('Levely_Infobox.webp');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            margin-top: 80px;
+            /* To account for the fixed navbar */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .world-government-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+
+        .hero-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .world-government-hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            letter-spacing: 5px;
+        }
+
+        .world-government-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Filter controls */
+        .filter-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 15px;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: #333;
+        }
+
+        .filter-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .filter-btn.active {
+            background: #D32F2F;
+            color: #fff;
+        }
+
+        /* Government grid */
+        .government-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .government-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.5s ease;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            justify-self: center;
+        }
+
+        .government-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .government-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .government-img {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .government-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6));
+        }
+
+        .government-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .government-card:hover .government-img img {
+            transform: scale(1.1);
+        }
+
+        .government-label {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            z-index: 1;
+        }
+
+        .imu-label {
+            background: rgba(128, 0, 128, 0.8);
+            /* Purple for Imu */
+        }
+
+        .elder-label {
+            background: rgba(139, 0, 0, 0.8);
+            /* Dark red for Elders */
+        }
+
+        .cp0-label {
+            background: rgba(25, 25, 112, 0.8);
+            /* Dark blue for CP0 */
+        }
+
+        .noble-label {
+            background: rgba(184, 134, 11, 0.8);
+            /* Golden for World Nobles */
+        }
+
+        .government-info {
+            padding: 20px;
+        }
+
+        .government-info h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .government-info p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .government-link {
+            display: inline-block;
+            color: #D32F2F;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .government-link:hover {
+            color: #B71C1C;
+        }
+
+        .government-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .government-stat {
+            font-size: 0.8rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .government-stat i {
+            color: #D32F2F;
+        }
+
+        /* Imu Section Styles */
+        .imu-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('/p');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+            color: #fff;
+            text-align: center;
+            margin: 50px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .imu-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .imu-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #D32F2F;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+
+        .imu-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .imu-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            color: #ccc;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 0.2s;
+        }
+
+        .imu-subtitle.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .imu-profile {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 0.4s;
+        }
+
+        .imu-profile.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .imu-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid #D32F2F;
+            box-shadow: 0 0 30px rgba(211, 47, 47, 0.5);
+            position: relative;
+        }
+
+        .imu-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(211, 47, 47, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .imu-image:hover::before {
+            opacity: 1;
+        }
+
+        .imu-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .imu-info {
+            max-width: 500px;
+            text-align: left;
+        }
+
+        .imu-info h3 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .imu-info p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+
+        .imu-quote {
+            font-style: italic;
+            font-size: 1.2rem;
+            color: #D32F2F;
+            margin: 30px 0;
+            padding: 20px;
+            border-left: 4px solid #D32F2F;
+            background: rgba(211, 47, 47, 0.1);
+            text-align: left;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 0.6s;
+        }
+
+        .imu-quote.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Search bar */
+        .search-container {
+            max-width: 600px;
+            margin: 30px auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            outline: none;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        /* No results message */
+        .no-results {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 1.2rem;
+            display: none;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #D32F2F;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #B71C1C;
+            transform: translateY(-5px);
+        }
+
+        /* Loading animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #D32F2F;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .world-government-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .world-government-hero p {
+                font-size: 1rem;
+            }
+
+            .imu-title {
+                font-size: 2.5rem;
+            }
+
+            .imu-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .imu-profile {
+                gap: 30px;
+            }
+
+            .imu-image {
+                width: 250px;
+                height: 250px;
+            }
+
+            .imu-info h3 {
+                font-size: 2rem;
+            }
+
+            .imu-quote {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .world-government-hero h1 {
+                font-size: 2rem;
+            }
+
+            .imu-title {
+                font-size: 2rem;
+            }
+
+            .imu-subtitle {
+                font-size: 1rem;
+            }
+
+            .imu-image {
+                width: 200px;
+                height: 200px;
+            }
+
+            .imu-info h3 {
+                font-size: 1.8rem;
+            }
+
+            .imu-info p {
+                font-size: 1rem;
+            }
+
+            .imu-quote {
+                font-size: 0.9rem;
+                padding: 15px;
+            }
+        }
+
+        /* Base Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            color: #D32F2F;
+        }
+
+        .nav-links ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Mobile menu icon */
+        .menu-icon {
+            font-size: 2rem;
+            cursor: pointer;
+            display: none;
+            /* hidden by default */
+        }
+
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: right 0.4s ease;
+            z-index: 9999;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            text-align: center;
+            padding: 0;
+        }
+
+        .mobile-menu ul li {
+            margin: 20px 0;
+        }
+
+        .mobile-menu ul li a {
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu ul li a:hover {
+            color: #D32F2F;
+        }
+
+        .close-icon {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Responsive Behavior */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                /* hide desktop nav */
+            }
+
+            .menu-icon {
+                display: block;
+                /* show hamburger */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>GRANDLINE</h1>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="marines.html">Marines</a></li>
+                <li><a href="pirates.html">Pirates</a></li>
+                <li><a href="world-government.html">World Government</a></li>
+            </ul>
+        </div>
+
+        <div class="menu-icon" id="menu-icon">
+            <i class="fas fa-bars"></i> <!-- hamburger icon -->
+        </div>
+    </nav>
+
+    <!-- Mobile Menu (hidden at first) -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-icon" id="close-icon">
+            <i class="fas fa-times"></i> <!-- cross icon -->
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="marines.html">Marines</a></li>
+            <li><a href="pirates.html">Pirates</a></li>
+            <li><a href="world-government.html">World Government</a></li>
+        </ul>
+    </div>
+
+    </nav>
+
+    <!-- World Government Hero Section -->
+    <section class="world-government-hero">
+        <div class="hero-content">
+            <h1>WORLD GOVERNMENT</h1>
+            <p>The global political organization that rules over the world of One Piece, maintaining order and opposing
+                piracy</p>
+        </div>
+    </section>
+
+    <!-- World Government Section -->
+    <section class="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>World Government Officials</h2>
+                <div class="underline"></div>
+            </div>
+
+
+
+            <div class="government-grid" id="governmentGrid">
+                <!-- Imu Card -->
+                <div class="government-card" data-category="imu">
+                    <div class="government-label imu-label">Supreme Authority</div>
+                    <div class="government-img">
+                        <img src="485723823_662066379845473_6192775686352577585_n.jpg" alt="Taib Hasan Alif">
+                    </div>
+                    <div class="government-info">
+                        <h3>Taib Hasan Alif (Imu)</h3>
+                        <div class="government-stats">
+                            <div class="government-stat"><i class="fas fa-crown"></i> Supreme Commander of the World
+                                Government</div>
+                            <div class="government-stat"><i class="fas fa-shield-alt"></i> World Government (Head)</div>
+                        </div>
+                        <p>Taib Hasan Alif is a man cloaked in mystery and wrapped in silence — a sovereign whose very
+                            presence alters the air around him. </p>
+                        <a href="imu.html" class="government-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Riyadh Elder Card -->
+                <div class="government-card" data-category="elder">
+                    <div class="government-label elder-label">Five Elders</div>
+                    <div class="government-img">
+                        <img src="Garling.webp" alt="Riyadh">
+                    </div>
+                    <div class="government-info">
+                        <h3>Riyadh (Saint Marcus Mars)</h3>
+                        <div class="government-stats">
+                            <div class="government-stat"><i class="fas fa-star"></i> The Shadow Crown of the World
+                                Government</div>
+                            <div class="government-stat"><i class="fas fa-fist-raised"></i> World Government (Hidden
+                                Head)</div>
+                        </div>
+                        <p>Little is known about his origins, not even by the highest-ranking Marines.</p>
+                        <a href="riyadh-elder.html" class="government-link">Learn More <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+
+                <h2>GRANDLINE</h2>
+                <p>The First One Piece Verse In Bangladesh</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="marines.html">Marines</a></li>
+                    <li><a href="pirates.html">Pirates</a></li>
+                    <li><a href="world-government.html">World Government</a></li>
+                </ul>
+            </div>
+            <div class="footer-newsletter">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for updates</p>
+                <form id="newsletterForm">
+                    <input type="email" placeholder="Your Email" required>
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <a href="Developer.html">
+                <p>Developed by - Md.Muntahi Islam Alif</p>
+            </a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <!-- Dynamic JavaScript for World Government Page -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Show hero content with animation
+            setTimeout(() => {
+                document.querySelector('.hero-content').classList.add('visible');
+            }, 300);
+
+            // Show Imu section elements with animation
+            const imuObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        imuObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            document.querySelectorAll('.imu-title, .imu-subtitle, .imu-profile, .imu-quote').forEach(el => {
+                imuObserver.observe(el);
+            });
+
+            // Animate government cards on scroll
+            const cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, entry.target.dataset.delay || 0);
+                        cardObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            // Add delay to each card for staggered animation
+            document.querySelectorAll('.government-card').forEach((card, index) => {
+                card.dataset.delay = index * 100;
+                cardObserver.observe(card);
+            });
+
+            // Filter functionality
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const cards = document.querySelectorAll('.government-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    // Show loading spinner
+                    document.getElementById('loading').style.display = 'block';
+
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+
+                    // Add active class to clicked button
+                    this.classList.add('active');
+
+                    // Get filter value
+                    const filterValue = this.getAttribute('data-filter');
+
+                    // Simulate loading delay
+                    setTimeout(() => {
+                        // Hide all cards first
+                        cards.forEach(card => {
+                            card.style.display = 'none';
+                            card.classList.remove('visible');
+                        });
+
+                        // Show cards based on filter
+                        let visibleCount = 0;
+                        cards.forEach((card, index) => {
+                            if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                                card.style.display = 'block';
+                                setTimeout(() => {
+                                    card.classList.add('visible');
+                                }, index * 100);
+                                visibleCount++;
+                            }
+                        });
+
+                        // Show/hide no results message
+                        document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+
+                        // Hide loading spinner
+                        document.getElementById('loading').style.display = 'none';
+                    }, 500);
+                });
+            });
+
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+
+            searchInput.addEventListener('input', function () {
+                const searchTerm = this.value.toLowerCase();
+
+                // Show loading spinner for searches
+                if (searchTerm.length > 0) {
+                    document.getElementById('loading').style.display = 'block';
+                }
+
+                // Simulate loading delay
+                setTimeout(() => {
+                    let visibleCount = 0;
+
+                    cards.forEach(card => {
+                        const cardTitle = card.querySelector('h3').textContent.toLowerCase();
+                        const cardDesc = card.querySelector('p').textContent.toLowerCase();
+
+                        if (cardTitle.includes(searchTerm) || cardDesc.includes(searchTerm)) {
+                            card.style.display = 'block';
+                            card.classList.add('visible');
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                            card.classList.remove('visible');
+                        }
+                    });
+
+                    // Show/hide no results message
+                    document.getElementById('noResults').style.display = visibleCount === 0 && searchTerm.length > 0 ? 'block' : 'none';
+
+                    // Hide loading spinner
+                    document.getElementById('loading').style.display = 'none';
+                }, 300);
+            });
+
+            // Back to top button
+            const backToTopButton = document.getElementById('backToTop');
+
+            window.addEventListener('scroll', function () {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            });
+
+            backToTopButton.addEventListener('click', function () {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+    <script>
+        const menuIcon = document.getElementById('menu-icon');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeIcon = document.getElementById('close-icon');
+
+        menuIcon.addEventListener('click', () => {
+            mobileMenu.style.right = "0";
+        });
+
+        closeIcon.addEventListener('click', () => {
+            mobileMenu.style.right = "-100%";
+        });
+    </script>
+
+</body>
+
+</html>

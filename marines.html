@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marines - Grandline Bangladesh</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        .marines-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('509a0-17298105793035-1920.webp');
+        }
+
+        .marine-members {
+            padding: 6rem 0;
+        }
+
+        .member-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .member-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+
+        .member-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-color: var(--secondary-color);
+        }
+
+        .member-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .member-card:hover .member-image img {
+            transform: scale(1.1);
+        }
+
+        .member-rank {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--secondary-color);
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .member-info {
+            padding: 1.5rem;
+        }
+
+        .member-info h3 {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .member-info .sea {
+            display: inline-block;
+            background: #f5f5f5;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            color: #666;
+        }
+
+        .member-traits {
+            margin-top: 1rem;
+        }
+
+        .member-traits h4 {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .traits-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .trait-tag {
+            background: #f5f5f5;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .member-description {
+            margin-top: 1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .filter-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: #f5f5f5;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover {
+            background: var(--secondary-color);
+            color: #fff;
+        }
+
+        /* Base Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            color: #D32F2F;
+        }
+
+        .nav-links ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Mobile menu icon */
+        .menu-icon {
+            font-size: 2rem;
+            cursor: pointer;
+            display: none;
+            /* hidden by default */
+        }
+
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: right 0.4s ease;
+            z-index: 9999;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            text-align: center;
+            padding: 0;
+        }
+
+        .mobile-menu ul li {
+            margin: 20px 0;
+        }
+
+        .mobile-menu ul li a {
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu ul li a:hover {
+            color: #D32F2F;
+        }
+
+        .close-icon {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Responsive Behavior */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                /* hide desktop nav */
+            }
+
+            .menu-icon {
+                display: block;
+                /* show hamburger */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>GRANDLINE</h1>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="marines.html">Marines</a></li>
+                <li><a href="pirates.html">Pirates</a></li>
+                <li><a href="world-government.html">World Government</a></li>
+            </ul>
+        </div>
+
+        <div class="menu-icon" id="menu-icon">
+            <i class="fas fa-bars"></i> <!-- hamburger icon -->
+        </div>
+    </nav>
+
+    <!-- Mobile Menu (hidden at first) -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-icon" id="close-icon">
+            <i class="fas fa-times"></i> <!-- cross icon -->
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="marines.html">Marines</a></li>
+            <li><a href="pirates.html">Pirates</a></li>
+            <li><a href="world-government.html">World Government</a></li>
+        </ul>
+    </div>
+
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero marines-hero">
+        <div class="hero-content">
+            <h1>MARINES</h1>
+            <h2>The Military Sea Force of the World Government</h2>
+            <p>Upholding justice and maintaining order across the seas</p>
+        </div>
+    </section>
+
+    <!-- Marine Members Section -->
+    <section class="marine-members">
+        <div class="container">
+            <div class="section-title">
+                <h2>Marine Members of Our Verse</h2>
+                <div class="underline"></div>
+            </div>
+
+            <div class="filter-controls">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="east">East Blue</button>
+                <button class="filter-btn" data-filter="west">West Blue</button>
+                <button class="filter-btn" data-filter="north">North Blue</button>
+                <button class="filter-btn" data-filter="south">South Blue</button>
+                <button class="filter-btn" data-filter="grand">Grand Line</button>
+                <button class="filter-btn" data-filter="new">New World</button>
+            </div>
+
+            <div class="member-grid">
+                <div class="member-card" data-sea="east">
+                    <div class="member-image">
+                        <img src="/placeholder.svg?height=250&width=300&text=Akainu" alt="Admiral Mehedi">
+                        <div class="member-rank">Admiral</div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Admiral Mehedi</h3>
+                        <div class="sea"><i class="fas fa-water"></i> East Blue</div>
+                        <!--  <div class="member-traits">
+                            <h4>Powers:</h4>
+                            <div class="traits-list">
+                                <span class="trait-tag">Magma-Magma Fruit User</span>
+                                <span class="trait-tag">Absolute Justice</span>
+                                <span class="trait-tag">Ruthless</span>
+                                <span class="trait-tag">Powerful Haki</span>
+                            </div>
+                        </div>
+                        <p class="member-description">A current Admiral of the Marines, known for his ruthless
+                            pursuit of justice and his deadly powers. He leads the Marines with an iron fist and
+                            believes in Absolute Justice.</p> -->
+                    </div>
+                </div>
+
+                <div class="member-card" data-sea="north">
+                    <div class="member-image">
+                        <img src="/placeholder.svg?height=250&width=300&text=Kizaru" alt="Admiral Taz">
+                        <div class="member-rank">Admiral</div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Admiral Taz</h3>
+                        <div class="sea"><i class="fas fa-water"></i> North Blue</div>
+
+                    </div>
+                </div>
+                <div class="member-card" data-sea="north">
+                    <div class="member-image">
+                        <img src="/placeholder.svg?height=250&width=300&text=Ryokugyu" alt="Vice Admiral Labib">
+                        <div class="member-rank">Vice Admiral</div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Vice Admiral Labib</h3>
+                        <div class="sea"><i class="fas fa-water"></i> North Blue</div>
+                    </div>
+                </div>
+
+                <div class="member-card" data-sea="east">
+                    <div class="member-image">
+                        <img src="/placeholder.svg?height=250&width=300&text=Smoker" alt="Amur Captain">
+                        <div class="member-rank">Amur:Captain</div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Captain Anik</h3>
+                        <div class="sea"><i class="fas fa-water"></i> East Blue</div>
+                    </div>
+                </div>
+
+                <div class="member-card" data-sea="east">
+                    <div class="member-image">
+                        <img src="/placeholder.svg?height=250&width=300&text=Koby" alt="Captain Kabir">
+                        <div class="member-rank">Captain</div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Captain Kabir</h3>
+                        <div class="sea"><i class="fas fa-water"></i> East Blue</div>
+                    </div>
+                </div>
+
+                <div class="member-card" data-sea="east">
+                    <div class="member-image">
+                        <img src="/placeholder.svg?height=250&width=300&text=Fujitora" alt="Rear Admiral Shrayan">
+                        <div class="member-rank">Rear Admiral</div>
+                    </div>
+                    <div class="member-info">
+                        <h3> Rear Admiral Shrayan</h3>
+                        <div class="sea"><i class="fas fa-water"></i> East Blue</div>
+                    </div>
+                </div>
+
+                <div class="member-card" data-sea="north">
+                    <div class="member-image">
+                        <img src="/placeholder.svg?height=250&width=300&text=Tashigi" alt="Lieutenant Samiul">
+                        <div class="member-rank">Lieutenant</div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Lieutenant Samiul</h3>
+                        <div class="sea"><i class="fas fa-water"></i> North Blue</div>
+                    </div>
+                </div>
+
+
+                <div class="member-card" data-sea="east">
+                    <div class="member-image">
+                        <img src="/placeholder.svg?height=250&width=300&text=Vergo" alt="Shariful">
+                        <div class="member-rank">Warrant Officer</div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Warrant Officer Shariful</h3>
+                        <div class="sea"><i class="fas fa-water"></i> East Blue</div>
+                    </div>
+                </div>
+
+                <div class="member-card" data-sea="east">
+                    <div class="member-image">
+                        <img src="/placeholder.svg?height=250&width=300&text=Sengoku" alt="Sergent Roman ">
+                        <div class="member-rank">Sergent</div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Sergent Roman</h3>
+                        <div class="sea"><i class="fas fa-water"></i> East Blue</div>
+                    </div>
+                </div>
+                <div class="member-card" data-sea="east">
+                    <div class="member-image">
+                        <img src="/placeholder.svg?height=250&width=300&text=Sengoku" alt="Sergent Ryuk ">
+                        <div class="member-rank">Sergent</div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Sergent Ryuk</h3>
+                        <div class="sea"><i class="fas fa-water"></i> East Blue</div>
+                    </div>
+                </div>
+                <div class="member-card" data-sea="east">
+                    <div class="member-image">
+                        <img src="/placeholder.svg?height=250&width=300&text=Sengoku" alt="Jannat Seaman 'Recruit'">
+                        <div class="member-rank">Seaman "Recruit"</div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Seaman "Recruit" Jannat</h3>
+                        <div class="sea"><i class="fas fa-water"></i> East Blue</div>
+                    </div>
+                </div>
+                <div class="member-card" data-sea="east">
+                    <div class="member-image">
+                        <img src="/placeholder.svg?height=250&width=300&text=Sengoku" alt="Ovi Seaman 'Recruit'">
+                        <div class="member-rank">Seaman "Recruit</div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Seaman "Recruit" Ovi </h3>
+                        <div class="sea"><i class="fas fa-water"></i> East Blue</div>
+                    </div>
+                </div>
+                <div class="member-card" data-sea="north">
+                    <div class="member-image">
+                        <img src="/placeholder.svg?height=250&width=300&text=Sengoku" alt="Pias Seaman 'Recruit'">
+                        <div class="member-rank">Seaman "Recruit</div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Seaman "Recruit" Pias </h3>
+                        <div class="sea"><i class="fas fa-water"></i> North Blue</div>
+                    </div>
+                </div>
+                <div class="member-card" data-sea="north">
+                    <div class="member-image">
+                        <img src="/placeholder.svg?height=250&width=300&text=Sengoku" alt="Jahid Seaman 'Recruit'">
+                        <div class="member-rank">Seaman "Recruit</div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Seaman "Recruit" Jahid </h3>
+                        <div class="sea"><i class="fas fa-water"></i> North Blue</div>
+                    </div>
+                </div>
+                <div class="member-card" data-sea="east">
+                    <div class="member-image">
+                        <img src="/placeholder.svg?height=250&width=300&text=Sengoku" alt="Saimun Seaman 'Recruit'">
+                        <div class="member-rank">Seaman "Recruit</div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Seaman "Recruit"Saimun </h3>
+                        <div class="sea"><i class="fas fa-water"></i> East Blue</div>
+                    </div>
+                </div>
+                <div class="member-card" data-sea="north">
+                    <div class="member-image">
+                        <img src="/placeholder.svg?height=250&width=300&text=Sengoku" alt="Salman Seaman 'Recruit'">
+                        <div class="member-rank">Seaman "Recruit</div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Seaman "Recruit"Salman </h3>
+                        <div class="sea"><i class="fas fa-water"></i> North Blue</div>
+                    </div>
+                </div>
+                <div class="member-card" data-sea="east">
+                    <div class="member-image">
+                        <img src="/placeholder.svg?height=250&width=300&text=Sengoku" alt="Rahat Seaman 'Recruit'">
+                        <div class="member-rank">Seaman "Recruit</div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Seaman "Recruit" Rahat </h3>
+                        <div class="sea"><i class="fas fa-water"></i> North Blue</div>
+                    </div>
+                </div>
+                <div class="member-card" data-sea="north">
+                    <div class="member-image">
+                        <img src="/placeholder.svg?height=250&width=300&text=Sengoku" alt="Ashraful Seaman 'Recruit'">
+                        <div class="member-rank">Seaman "Recruit</div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Seaman "Recruit" Ashraful </h3>
+                        <div class="sea"><i class="fas fa-water"></i> North Blue</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>GRANDLINE</h2>
+                <p>The First One Piece Verse In Bangladesh</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="marines.html">Marines</a></li>
+                    <li><a href="pirates.html">Pirates</a></li>
+                    <li><a href="world-government.html">World Government</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-newsletter">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for updates</p>
+                <form id="newsletterForm">
+                    <input type="email" placeholder="Your Email" required>
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <a href="Developer.html">
+                <p>Developed by - Md.Muntahi Islam Alif</p>
+            </a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Filter functionality for marine members
+        document.addEventListener('DOMContentLoaded', function () {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const memberCards = document.querySelectorAll('.member-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+
+                    const filter = this.getAttribute('data-filter');
+
+                    memberCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-sea').includes(filter)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+    <script>
+        const menuIcon = document.getElementById('menu-icon');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeIcon = document.getElementById('close-icon');
+        
+        menuIcon.addEventListener('click', () => {
+            mobileMenu.style.right = "0";
+        });
+        
+        closeIcon.addEventListener('click', () => {
+            mobileMenu.style.right = "-100%";
+        });
+        </script>
+        
+</body>
+
+</html>

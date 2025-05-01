@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pirates - Grandline Bangladesh</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Pirates page specific styles */
+        .pirates-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('5acc1-16728784939884-1920.webp');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            margin-top: 80px;
+            /* To account for the fixed navbar */
+        }
+
+        .pirates-hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            letter-spacing: 5px;
+        }
+
+        .pirates-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .pirates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .pirate-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pirate-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .pirate-img {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .pirate-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6));
+        }
+
+        .pirate-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .pirate-card:hover .pirate-img img {
+            transform: scale(1.1);
+        }
+
+        .crew-label {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            z-index: 1;
+        }
+
+        .east-blue {
+            background: rgba(52, 152, 219, 0.8);
+        }
+
+        .north-blue {
+            background: rgba(155, 89, 182, 0.8);
+        }
+
+        .west-blue {
+            background: rgba(46, 204, 113, 0.8);
+        }
+
+        .south-blue {
+            background: rgba(241, 196, 15, 0.8);
+        }
+
+        .grand-line {
+            background: rgba(231, 76, 60, 0.8);
+        }
+
+        .new-world {
+            background: rgba(26, 188, 156, 0.8);
+        }
+
+        .pirate-info {
+            padding: 20px;
+        }
+
+        .pirate-info h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .pirate-info p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .pirate-link {
+            display: inline-block;
+            color: #D32F2F;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .pirate-link:hover {
+            color: #B71C1C;
+        }
+
+        .crew-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .crew-stat {
+            font-size: 0.8rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .crew-stat i {
+            color: #D32F2F;
+        }
+
+        /* Base Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            color: #D32F2F;
+        }
+
+        .nav-links ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Mobile menu icon */
+        .menu-icon {
+            font-size: 2rem;
+            cursor: pointer;
+            display: none;
+            /* hidden by default */
+        }
+
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: right 0.4s ease;
+            z-index: 9999;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            text-align: center;
+            padding: 0;
+        }
+
+        .mobile-menu ul li {
+            margin: 20px 0;
+        }
+
+        .mobile-menu ul li a {
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu ul li a:hover {
+            color: #D32F2F;
+        }
+
+        .close-icon {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Responsive Behavior */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                /* hide desktop nav */
+            }
+
+            .menu-icon {
+                display: block;
+                /* show hamburger */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>GRANDLINE</h1>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="marines.html">Marines</a></li>
+                <li><a href="pirates.html">Pirates</a></li>
+                <li><a href="world-government.html">World Government</a></li>
+            </ul>
+        </div>
+
+        <div class="menu-icon" id="menu-icon">
+            <i class="fas fa-bars"></i> <!-- hamburger icon -->
+        </div>
+    </nav>
+
+    <!-- Mobile Menu (hidden at first) -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-icon" id="close-icon">
+            <i class="fas fa-times"></i> <!-- cross icon -->
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="marines.html">Marines</a></li>
+            <li><a href="pirates.html">Pirates</a></li>
+            <li><a href="world-government.html">World Government</a></li>
+        </ul>
+    </div>
+
+    </nav>
+
+
+    <!-- Pirates Hero Section -->
+    <section class="pirates-hero">
+        <div class="hero-content">
+            <h1>PIRATES</h1>
+            <p>Explore the fearsome pirate crews that sail the seas in search of adventure, treasure, and the legendary
+                One Piece</p>
+        </div>
+    </section>
+
+    <!-- Pirates Section -->
+    <section class="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Pirate Crews of Our Verse </h2>
+                <div class="underline"></div>
+            </div>
+
+            <div class="pirates-grid">
+                <div class="pirate-card">
+                    <div class="crew-label east-blue">East Blue</div>
+                    <div class="pirate-img">
+                        <img src="483918434_622442930564669_1588784657963217581_n.jpg" alt="Ryujin Pirates">
+                    </div>
+                    <div class="pirate-info">
+                        <h3>Ryujin Pirates</h3>
+                        <div class="crew-stats">
+                            <div class="crew-stat"><i class="fas fa-users"></i> 12 members</div>
+                            <div class="crew-stat"><i class="fas fa-certificate"></i> 479M Berries</div>
+                        </div>
+                        <p>A powerful crew from the East Blue known for their dragon-themed abilities and fierce
+                            loyalty.</p>
+                        <a href="ryujin-pirates.html" class="pirate-link">Learn More <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="pirate-card">
+                    <div class="crew-label east-blue">East Blue</div>
+                    <div class="pirate-img">
+                        <img src="491008909_3886435351596321_3224915292639196709_n.jpg" alt="Hell's Tenant">
+                    </div>
+                    <div class="pirate-info">
+                        <h3>Hell's Tenant</h3>
+                        <div class="crew-stats">
+                            <div class="crew-stat"><i class="fas fa-users"></i> 6 members</div>
+                            <div class="crew-stat"><i class="fas fa-certificate"></i> 455.003M Berries</div>
+                        </div>
+                        <p>A mysterious crew rumored to have made deals with demons for supernatural abilities.</p>
+                        <a href="hells-tenant.html" class="pirate-link">Learn More <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="pirate-card">
+                    <div class="crew-label east-blue">East Blue</div>
+                    <div class="pirate-img">
+                        <img src="Red and White Modern Tech Coming Soon Instagram Post (2).png" alt="Arashi Pirates">
+                    </div>
+                    <div class="pirate-info">
+                        <h3>Arashi Pirates</h3>
+                        <div class="crew-stats">
+                            <div class="crew-stat"><i class="fas fa-users"></i> 9 members</div>
+                            <div class="crew-stat"><i class="fas fa-certificate"></i> 232M Berries</div>
+                        </div>
+                        <p>Masters of weather manipulation who can summon devastating storms at will.</p>
+                        <a href="arashi-pirates.html" class="pirate-link">Learn More <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="pirate-card">
+                    <div class="crew-label north-blue">North Blue</div>
+                    <div class="pirate-img">
+                        <img src="494688430_1214437196988124_7795590474087606424_n.jpg" alt="The Leviathan Pirates">
+                    </div>
+                    <div class="pirate-info">
+                        <h3>The Leviathan Pirates</h3>
+                        <div class="crew-stats">
+                            <div class="crew-stat"><i class="fas fa-users"></i> 5 members</div>
+                            <div class="crew-stat"><i class="fas fa-certificate"></i> 138M Berries</div>
+                        </div>
+                        <p>A fearsome crew with sea monster-like abilities who rule the depths of the Grand Line.</p>
+                        <a href="leviathan-pirates.html" class="pirate-link">Learn More <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="pirate-card">
+                    <div class="crew-label north-blue">North Blue</div>
+                    <div class="pirate-img">
+                        <img src="486443396_1163771304992656_6130864196457075688_n.jpg" alt="Reviere Pirates">
+                    </div>
+                    <div class="pirate-info">
+                        <h3>Reviere Pirates</h3>
+                        <div class="crew-stats">
+                            <div class="crew-stat"><i class="fas fa-users"></i> 9 members</div>
+                            <div class="crew-stat"><i class="fas fa-certificate"></i> 309M Berries</div>
+                        </div>
+                        <p>Masters of illusion and psychological warfare from the North Blue.</p>
+                        <a href="reviere-pirates.html" class="pirate-link">Learn More <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="pirate-card">
+                    <div class="crew-label north-blue">North Blue</div>
+                    <div class="pirate-img">
+                        <img src="489729678_553919124418941_1962129903653687800_n.jpg" alt="Syrex Pirates">
+                    </div>
+                    <div class="pirate-info">
+                        <h3>Syrex Pirates</h3>
+                        <div class="crew-stats">
+                            <div class="crew-stat"><i class="fas fa-users"></i> 13 members</div>
+                            <div class="crew-stat"><i class="fas fa-certificate"></i> 472M Berries</div>
+                        </div>
+                        <p>The Poison Masters of North Blue, feared for their deadly toxins and scientific expertise.
+                        </p>
+                        <a href="syrex-pirates.html" class="pirate-link">Learn More <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+
+                <h2>GRANDLINE</h2>
+                <p>The First One Piece Verse In Bangladesh</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="marines.html">Marines</a></li>
+                    <li><a href="pirates.html">Pirates</a></li>
+                    <li><a href="world-government.html">World Government</a></li>
+                </ul>
+            </div>
+            <div class="footer-newsletter">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for updates</p>
+                <form id="newsletterForm">
+                    <input type="email" placeholder="Your Email" required>
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <a href="Developer.html">
+                <p>Developed by - Md.Muntahi Islam Alif</p>
+            </a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        const menuIcon = document.getElementById('menu-icon');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeIcon = document.getElementById('close-icon');
+        
+        menuIcon.addEventListener('click', () => {
+            mobileMenu.style.right = "0";
+        });
+        
+        closeIcon.addEventListener('click', () => {
+            mobileMenu.style.right = "-100%";
+        });
+        </script>
+        
+</body>
+
+</html>

@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hell's Tenant - Grandline Bangladesh</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        .crew-profile {
+            margin-top: 4rem;
+        }
+
+        .crew-banner {
+            position: relative;
+            height: 300px;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('chinese-azure-dragon-rebecca-wang.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 3rem;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .crew-emblem {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 5px solid #070707;
+            background: #fff;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .crew-emblem img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .ship-section h2 {
+            color: #ffff
+        }
+
+        .crew-details {
+            margin-top: 70px;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .crew-details h2 {
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .crew-details .tagline {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .crew-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+
+        .stat-item {
+            background: #f5f5f5;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-item i {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .crew-description {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .crew-members-section {
+            margin-top: 4rem;
+        }
+
+        .crew-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .member-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .member-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .member-img {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .member-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .member-card:hover .member-img img {
+            transform: scale(1.1);
+        }
+
+        .member-info {
+            padding: 1.5rem;
+        }
+
+        .member-info h3 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .member-info p {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-info .bounty {
+            color: var(--primary-color);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .member-info .bounty i {
+            font-size: 1.2rem;
+        }
+
+        .ship-section {
+            margin-top: 4rem;
+            background: #070707;
+            padding: 3rem;
+            border-radius: 10px;
+        }
+
+        .ship-content {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .ship-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .ship-image img {
+            width: 100%;
+            display: block;
+        }
+
+        .ship-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .ship-info h3 {
+            color: var(--secondary-color);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .ship-info p {
+            color: #ffffff;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .ship-features {
+            margin-top: 1.5rem;
+        }
+
+        .ship-features h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-item i {
+            color: var(--primary-color);
+        }
+
+        .territory-section {
+            margin-top: 4rem;
+        }
+
+        .territory-map {
+            height: 400px;
+            background: url('/placeholder.svg?height=400&width=1200&text=Ryujin+Territory+Map');
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            margin-top: 2rem;
+            position: relative;
+        }
+
+        .map-marker {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: var(--primary-color);
+            border-radius: 50% 50% 0 50%;
+            transform: rotate(45deg);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .map-marker:hover {
+            transform: rotate(45deg) scale(1.2);
+            background: var(--secondary-color);
+        }
+
+        .map-marker::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            border-radius: 50%;
+        }
+
+        .marker-1 {
+            top: 30%;
+            left: 20%;
+        }
+
+        .marker-2 {
+            top: 50%;
+            left: 40%;
+        }
+
+        .marker-3 {
+            top: 70%;
+            left: 60%;
+        }
+
+        .marker-4 {
+            top: 40%;
+            left: 80%;
+        }
+
+        .marker-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .map-marker:hover .marker-tooltip {
+            opacity: 1;
+            visibility: visible;
+            bottom: calc(100% + 10px);
+        }
+
+        /* Base Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            color: #D32F2F;
+        }
+
+        .nav-links ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Mobile menu icon */
+        .menu-icon {
+            font-size: 2rem;
+            cursor: pointer;
+            display: none;
+            /* hidden by default */
+        }
+
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: right 0.4s ease;
+            z-index: 9999;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            text-align: center;
+            padding: 0;
+        }
+
+        .mobile-menu ul li {
+            margin: 20px 0;
+        }
+
+        .mobile-menu ul li a {
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu ul li a:hover {
+            color: #D32F2F;
+        }
+
+        .close-icon {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Responsive Behavior */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                /* hide desktop nav */
+            }
+
+            .menu-icon {
+                display: block;
+                /* show hamburger */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>GRANDLINE</h1>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="marines.html">Marines</a></li>
+                <li><a href="pirates.html">Pirates</a></li>
+                <li><a href="world-government.html">World Government</a></li>
+            </ul>
+        </div>
+
+        <div class="menu-icon" id="menu-icon">
+            <i class="fas fa-bars"></i> <!-- hamburger icon -->
+        </div>
+    </nav>
+
+    <!-- Mobile Menu (hidden at first) -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-icon" id="close-icon">
+            <i class="fas fa-times"></i> <!-- cross icon -->
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="marines.html">Marines</a></li>
+            <li><a href="pirates.html">Pirates</a></li>
+            <li><a href="world-government.html">World Government</a></li>
+        </ul>
+    </div>
+
+    </nav>
+
+    <!-- Crew Hero Section -->
+    <section class="hero"
+        style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('ChatGPT Image Apr 24, 2025, 10_46_24 PM.png');">
+        <div class="hero-content">
+            <h1>RYUJIN PIRATES</h1>
+            <h2>Masters of the Eastern Seas</h2>
+            <p>A fearsome crew known for their dragon-themed ship and water-based combat</p>
+        </div>
+    </section>
+
+    <!-- Crew Profile -->
+    <section class="about">
+        <div class="container">
+            <div class="crew-profile">
+                <div class="crew-banner">
+                    <div class="crew-emblem">
+                        <img src="483918434_622442930564669_1588784657963217581_n.jpg" alt="Ryujin Pirates Emblem">
+                    </div>
+                </div>
+
+                <div class="crew-details">
+                    <h2>Ryujin Pirates</h2>
+                    <p class="tagline">"The Sea Dragons of the East"</p>
+
+                    <div class="crew-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-users"></i>
+                            <span>Crew Size: 12 members</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Territory: East Blue</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-certificate"></i>
+                            <span>Total Bounty: 479,000,000 Berries</span>
+                        </div>
+                    </div>
+
+                    <div class="crew-description">
+                        <p>The Ryujin Pirates are deemed an increasing threat to the stability of the seas. Under the
+                            command of
+                            Capitan Sami, the crew has shown exceptional growth in strength, influence, and territorial
+                            presence. With
+                            members specializing in navigation, combat, intelligence, and medicine, they are to be
+                            approached with
+                            extreme caution. Any sightings should be reported immediately to the nearest Marine base.
+                            Their bounties
+                            reflect the danger they pose to world peace. </p>
+                    </div>
+                </div>
+
+                <!-- Crew Members -->
+                <div class="crew-members-section">
+                    <div class="section-title">
+                        <h2>Members</h2>
+                        <div class="underline"></div>
+                    </div>
+
+                    <div class="crew-members">
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Ryunosuke+Kaito" alt="Sami">
+                            </div>
+                            <div class="member-info">
+                                <h3>Sami</h3>
+                                <p>Captain</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 154,000,000 Berries</p>
+                            </div>
+                        </div>
+
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Mizuki" alt="Akif">
+                            </div>
+                            <div class="member-info">
+                                <h3>Akif</h3>
+                                <p>Commander</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 101,000,000 Berries</p>
+                            </div>
+                        </div>
+
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Takeshi" alt="Rafi">
+                            </div>
+                            <div class="member-info">
+                                <h3>Rafi</h3>
+                                <p>Swordsman</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 113,000,000 Berries</p>
+                            </div>
+                        </div>
+
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Umi" alt="Nabil">
+                            </div>
+                            <div class="member-info">
+                                <h3>Nabil</h3>
+                                <p>Lieutenant</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 30,000,000 Berries</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Umi" alt="Ahosan">
+                            </div>
+                            <div class="member-info">
+                                <h3>Ahosan</h3>
+                                <p>Cook</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 18,000,000 Berries</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Umi" alt="Tareq">
+                            </div>
+                            <div class="member-info">
+                                <h3>Tareq</h3>
+                                <p>Doctor</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 15,000,000 Berries</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Umi" alt="Nafisa">
+                            </div>
+                            <div class="member-info">
+                                <h3>Nafisa</h3>
+                                <p>Navigator</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 21,000,000 Berries</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Umi" alt="Rifat">
+                            </div>
+                            <div class="member-info">
+                                <h3>Rifat</h3>
+                                <p>Sniper</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 17,000,000 Berries</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Umi" alt="Kazu">
+                            </div>
+                            <div class="member-info">
+                                <h3>Kazu</h3>
+                                <p>Archeologist</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> one</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Umi" alt="Jayed">
+                            </div>
+                            <div class="member-info">
+                                <h3>Jayed</h3>
+                                <p>Shipwright</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 10,000,000</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Umi" alt="Araf">
+                            </div>
+                            <div class="member-info">
+                                <h3>Araf</h3>
+                                <p>Sharpshooter</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> None</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="ship-section">
+                <div class="section-title">
+                    <h2>The Ryugami</h2>
+                    <div class="underline"></div>
+                </div>
+
+                <div class="ship-content">
+                    <div class="ship-image">
+                        <img src="709f3214-fe50-47e3-9a45-5d9a984e54c8.jpeg" alt="The Ryugami">
+                    </div>
+                    <div class="ship-info">
+                        <p>From the abyss of forgotten legends, it rises…
+
+                            Born from the wreckage of ancient warships and bathed in the fury of forgotten seas, Ryugami
+                            isn’t just a ship, it’s a beast!. A twisted fusion of Pluton’s indestructible armor, the
+                            ghostly presence of Thriller Bark, the swift soul of Oro Jackson, and the wrath of a sea
+                            king, it sails as if possessed, answering to no captain, only to destiny.
+
+                            Its obsidian-plated hull gleams like dragon scales in moonlight. The sails, torn yet alive,
+                            whisper the names of the fallen. Cannons fire not with powder, but with cursed blaze,
+                            searing through both ships and souls. Beneath its deck lie ancient relics, corridors haunted
+                            by echoing footsteps, and a logbook that writes itself in crimson ink.
+
+                            While a massive dragon coils through the stormy sky, forever bound to this cursed warship,
+                            Ryugami is more than a vessel a nightmare that sails under a Jolly Roger soaked in
+                            vengeance.
+                            Some say it was born from the depths of the abyss, others claim it was a dragon’s wrath made
+                            into a ship—but one truth remains: No one who faces Ryugami lives to tell the tale.
+
+                            🌊 Will you challenge the storm… or bow before the legend? ⚔️🔥</p>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <!--     Territory Section 
+            <div class="territory-section">
+                <div class="section-title">
+                    <h2>Territory & Influence</h2>
+                    <div class="underline"></div>
+                </div>
+
+                <p>The Ryujin Pirates control several key trade routes and islands in the eastern part of East Blue.
+                    Their territory is marked by small dragon statues placed on the shores of islands under their
+                    protection.</p>
+
+                <div class="territory-map">
+                    <div class="map-marker marker-1">
+                        <div class="marker-tooltip">Dragon's Cove - Main Base</div>
+                    </div>
+                    <div class="map-marker marker-2">
+                        <div class="marker-tooltip">Mizuki Island - Training Grounds</div>
+                    </div>
+                    <div class="map-marker marker-3">
+                        <div class="marker-tooltip">Coral Bay - Allied Port</div>
+                    </div>
+                    <div class="map-marker marker-4">
+                        <div class="marker-tooltip">Sapphire Waters - Hunting Grounds</div>
+                    </div>
+                </div>
+
+                <p style="margin-top: 2rem;">Unlike many pirate crews, the Ryujin Pirates have established positive
+                    relationships with several coastal villages in their territory. They offer protection from other
+                    pirates and corrupt officials in exchange for safe harbor and supplies. This has made them popular
+                    among the common people but has increased the Marines' determination to capture them.</p>
+            </div> -->
+        </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>GRANDLINE</h2>
+                <p>The First One Piece Verse In Bangladesh</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="marines.html">Marines</a></li>
+                    <li><a href="pirates.html">Pirates</a></li>
+                    <li><a href="world-government.html">World Government</a></li>
+                </ul>
+            </div>
+            <div class="footer-newsletter">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for updates</p>
+                <form id="newsletterForm">
+                    <input type="email" placeholder="Your Email" required>
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <a href="Developer.html">
+                <p>Developed by - Md.Muntahi Islam Alif</p>
+            </a>
+        </div>
+    </footer>
+
+
+    <script src="script.js"></script>
+    <script>
+        // Map marker tooltips
+        document.addEventListener('DOMContentLoaded', function () {
+            const mapMarkers = document.querySelectorAll('.map-marker');
+
+            mapMarkers.forEach(marker => {
+                marker.addEventListener('mouseenter', () => {
+                    const tooltip = marker.querySelector('.marker-tooltip');
+                    tooltip.style.opacity = '1';
+                    tooltip.style.visibility = 'visible';
+                });
+
+                marker.addEventListener('mouseleave', () => {
+                    const tooltip = marker.querySelector('.marker-tooltip');
+                    tooltip.style.opacity = '0';
+                    tooltip.style.visibility = 'hidden';
+                });
+            });
+        });
+    </script>
+    <script>
+        const menuIcon = document.getElementById('menu-icon');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeIcon = document.getElementById('close-icon');
+
+        menuIcon.addEventListener('click', () => {
+            mobileMenu.style.right = "0";
+        });
+
+        closeIcon.addEventListener('click', () => {
+            mobileMenu.style.right = "-100%";
+        });
+    </script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviere Pirates - Grandline Bangladesh</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        .crew-profile {
+            margin-top: 4rem;
+        }
+
+        .crew-banner {
+            position: relative;
+            height: 300px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('fantasy-cthulhu-beach-creature-wallpaper-preview.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 3rem;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .crew-emblem {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 5px solid #7B1FA2;
+            background: #000;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .crew-emblem img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .crew-details {
+            margin-top: 70px;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .crew-details h2 {
+            color: #7B1FA2;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .crew-details .tagline {
+            color: #333;
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .crew-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: #f5f5f5;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-item i {
+            color: #7B1FA2;
+            font-size: 1.2rem;
+        }
+
+        .crew-description {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .crew-members-section {
+            margin-top: 4rem;
+        }
+
+        .crew-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .member-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #ddd;
+        }
+
+        .member-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-color: #7B1FA2;
+        }
+
+        .member-img {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .member-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6));
+        }
+
+        .member-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .member-card:hover .member-img img {
+            transform: scale(1.1);
+        }
+
+        .member-info {
+            padding: 1.5rem;
+            background: #fff;
+        }
+
+        .member-info h3 {
+            color: #7B1FA2;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-info p {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-info .bounty {
+            color: #7B1FA2;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .member-info .bounty i {
+            font-size: 1.2rem;
+        }
+
+        .ship-section {
+            margin-top: 4rem;
+            background: #111;
+            padding: 3rem;
+            border-radius: 10px;
+            color: #fff;
+        }
+
+        .ship-section .section-title h2 {
+            color: #fff;
+        }
+
+        .ship-section .underline {
+            background: #7B1FA2;
+        }
+
+        .ship-content {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .ship-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .ship-image img {
+            width: 100%;
+            display: block;
+        }
+
+        .ship-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .ship-info h3 {
+            color: #7B1FA2;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .ship-info p {
+            color: #ccc;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .ship-features {
+            margin-top: 1.5rem;
+        }
+
+        .ship-features h4 {
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-item i {
+            color: #7B1FA2;
+        }
+
+        .abilities-section {
+            margin-top: 4rem;
+        }
+
+        .abilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .ability-card {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border-left: 5px solid #7B1FA2;
+        }
+
+        .ability-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .ability-card h3 {
+            color: #7B1FA2;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ability-card h3 i {
+            font-size: 1.2rem;
+        }
+
+        .ability-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .rumors-section {
+            margin-top: 4rem;
+            background: #f5f5f5;
+            padding: 3rem;
+            border-radius: 10px;
+        }
+
+        .rumor-list {
+            margin-top: 2rem;
+        }
+
+        .rumor-item {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .rumor-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .rumor-item h3 {
+            color: #7B1FA2;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .rumor-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .rumor-source {
+            margin-top: 1rem;
+            font-style: italic;
+            color: #999;
+            font-size: 0.9rem;
+            text-align: right;
+        }
+
+        /* Base Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            color: #D32F2F;
+        }
+
+        .nav-links ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Mobile menu icon */
+        .menu-icon {
+            font-size: 2rem;
+            cursor: pointer;
+            display: none;
+            /* hidden by default */
+        }
+
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: right 0.4s ease;
+            z-index: 9999;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            text-align: center;
+            padding: 0;
+        }
+
+        .mobile-menu ul li {
+            margin: 20px 0;
+        }
+
+        .mobile-menu ul li a {
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu ul li a:hover {
+            color: #D32F2F;
+        }
+
+        .close-icon {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Responsive Behavior */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                /* hide desktop nav */
+            }
+
+            .menu-icon {
+                display: block;
+                /* show hamburger */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>GRANDLINE</h1>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="marines.html">Marines</a></li>
+                <li><a href="pirates.html">Pirates</a></li>
+                <li><a href="world-government.html">World Government</a></li>
+            </ul>
+        </div>
+
+        <div class="menu-icon" id="menu-icon">
+            <i class="fas fa-bars"></i> <!-- hamburger icon -->
+        </div>
+    </nav>
+
+    <!-- Mobile Menu (hidden at first) -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-icon" id="close-icon">
+            <i class="fas fa-times"></i> <!-- cross icon -->
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="marines.html">Marines</a></li>
+            <li><a href="pirates.html">Pirates</a></li>
+            <li><a href="world-government.html">World Government</a></li>
+        </ul>
+    </div>
+
+    </nav>
+    <!-- Crew Hero Section -->
+    <section class="hero"
+        style="background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('1309839.jpg');">
+        <div class="hero-content">
+            <h1>REVIERE PIRATES</h1>
+            <h2>The Dream Weavers of North Blue</h2>
+            <p>Masters of illusion and psychological warfare</p>
+        </div>
+    </section>
+
+    <!-- Crew Profile -->
+    <section class="about">
+        <div class="container">
+            <div class="crew-profile">
+                <div class="crew-banner">
+                    <div class="crew-emblem">
+                        <img src="486443396_1163771304992656_6130864196457075688_n.jpg" alt="Reviere Pirates Emblem">
+                    </div>
+                </div>
+
+                <div class="crew-details">
+                    <h2>Reviere Pirates</h2>
+                    <p class="tagline">"Where Dreams and Nightmares Collide"</p>
+
+                    <div class="crew-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-users"></i>
+                            <span>Crew Size: 9 members</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Territory: North Blue</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-certificate"></i>
+                            <span>Total Bounty: 309,000,000 Berries</span>
+                        </div>
+                    </div>
+
+                    <div class="crew-description">
+                        <p>The Reverie Pirates, emerging from the foggy coasts of the North Blue, are led by the quiet
+                            yet enigmatic
+                            Captain Rayan. Calm in demeanor but sharp in execution, Rayan has gathered a crew known for
+                            their subtle
+                            movements and unpredictable goals. They rarely seek direct conflict, instead favoring
+                            precision strikes and
+                            well-timed escapes. Though not openly hostile, their growing influence and tactical
+                            intelligence make them
+                            a crew worth watching. Marines are advised to proceed with discretion and report any
+                            activity related to the
+                            Reverie Pirates. </p>
+                    </div>
+                </div>
+
+                <!-- Crew Members -->
+                <div class="crew-members-section">
+                    <div class="section-title">
+                        <h2>Key Members</h2>
+                        <div class="underline"></div>
+                    </div>
+
+                    <div class="crew-members">
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Captain+Lucien"
+                                    alt="Captain Reviere">
+                            </div>
+                            <div class="member-info">
+                                <h3>Rayan</h3>
+                                <p>Captain</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 120,000,000 Berries</p>
+                            </div>
+                        </div>
+
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Celeste" alt="Abdullah">
+                            </div>
+                            <div class="member-info">
+                                <h3>Abdullah</h3>
+                                <p>Vice Captain</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 50,000,000 Berries</p>
+                            </div>
+                        </div>
+
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Morpheus" alt="Maisha">
+                            </div>
+                            <div class="member-info">
+                                <h3>Maisha</h3>
+                                <p>Navigator</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 20,000,000 Berries</p>
+                            </div>
+                        </div>
+
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Echo" alt="Akib">
+                            </div>
+                            <div class="member-info">
+                                <h3>Akib</h3>
+                                <p>Sniper</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i>None</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Captain+Lucien" alt="Tahasan">
+                            </div>
+                            <div class="member-info">
+                                <h3>Tahasan</h3>
+                                <p>Cook</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 18,000,000 Berries</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Captain+Lucien" alt="nabil">
+                            </div>
+                            <div class="member-info">
+                                <h3>Nabil</h3>
+                                <p>Swordsman</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 41,000,000 Berries</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Captain+Lucien" alt="Piush">
+                            </div>
+                            <div class="member-info">
+                                <h3>Piush</h3>
+                                <p>Shipwright</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 10,000,000 Berries</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Captain+Lucien" alt="Hasibur">
+                            </div>
+                            <div class="member-info">
+                                <h3>Hasibur</h3>
+                                <p>Musician</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 20,000,000 Berries</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Captain+Lucien" alt="Afjal">
+                            </div>
+                            <div class="member-info">
+                                <h3>Afjal</h3>
+                                <p>Doctor</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 30,000,000 Berries</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                       
+                  
+
+
+
+                <script src="script.js"></script>
+                <script>
+                    const menuIcon = document.getElementById('menu-icon');
+                    const mobileMenu = document.getElementById('mobileMenu');
+                    const closeIcon = document.getElementById('close-icon');
+
+                    menuIcon.addEventListener('click', () => {
+                        mobileMenu.style.right = "0";
+                    });
+
+                    closeIcon.addEventListener('click', () => {
+                        mobileMenu.style.right = "-100%";
+                    });
+                </script>
+
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>GRANDLINE</h2>
+                <p>The First One Piece Verse In Bangladesh</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="marines.html">Marines</a></li>
+                    <li><a href="pirates.html">Pirates</a></li>
+                    <li><a href="world-government.html">World Government</a></li>
+                </ul>
+            </div>
+            <div class="footer-newsletter">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for updates</p>
+                <form id="newsletterForm">
+                    <input type="email" placeholder="Your Email" required>
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <a href="Developer.html">
+                <p>Developed by - Md.Muntahi Islam Alif</p>
+            </a>
+        </div>
+    </footer>
+</body>
+
+</html>

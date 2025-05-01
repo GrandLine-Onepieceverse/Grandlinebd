@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riyadh (Saint Marcus Mars) - Grandline Bangladesh</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Elder page specific styles */
+        .elder-banner {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('onepieceelders.webp');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            margin-top: 80px;
+            /* To account for the fixed navbar */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .elder-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(211, 47, 47, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        .elder-banner.loaded::before {
+            opacity: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+
+        .hero-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .elder-profile {
+            margin-top: -100px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .elder-avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto;
+            border: 5px solid #D32F2F;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 1s ease;
+        }
+
+        .elder-avatar.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .elder-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .elder-details {
+            background: #fff;
+            max-width: 800px;
+            margin: -100px auto 0;
+            padding: 120px 30px 50px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 0.3s;
+        }
+
+        .elder-details.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .elder-name {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .elder-title {
+            font-size: 1.2rem;
+            color: #D32F2F;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .elder-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .elder-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .elder-stat.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .elder-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #D32F2F;
+        }
+
+        .elder-stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .elder-bio {
+            text-align: left;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .elder-bio p {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .elder-bio p.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .elder-quote {
+            font-style: italic;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+            border-left: 4px solid #D32F2F;
+            margin: 30px 0;
+            text-align: left;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .elder-quote.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Tabs */
+        .elder-tabs {
+            margin-top: 50px;
+        }
+
+        .tabs-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: #333;
+        }
+
+        .tab-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .tab-btn.active {
+            background: #D32F2F;
+            color: #fff;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .elder-abilities {
+            margin-top: 50px;
+        }
+
+        .abilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .ability-card {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border-left: 4px solid #D32F2F;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .ability-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .ability-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .ability-card h3 {
+            color: #D32F2F;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ability-card h3 i {
+            font-size: 1.2rem;
+        }
+
+        .ability-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Image gallery */
+        .image-gallery {
+            margin-top: 50px;
+        }
+
+        .gallery-container {
+            position: relative;
+            max-width: 800px;
+            margin: 30px auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-slide {
+            display: none;
+            animation: fadeEffect 1s;
+        }
+
+        .gallery-slide.active {
+            display: block;
+        }
+
+        @keyframes fadeEffect {
+            from {
+                opacity: 0.7
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        .gallery-slide img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .gallery-prev,
+        .gallery-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .gallery-prev:hover,
+        .gallery-next:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .gallery-prev {
+            left: 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .gallery-next {
+            right: 0;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .gallery-dots {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .gallery-dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin: 0 5px;
+            background: #bbb;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-dot.active {
+            background: #D32F2F;
+            transform: scale(1.2);
+        }
+
+        .elder-role {
+            background: #111;
+            padding: 80px 0;
+            color: #fff;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .elder-role::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/placeholder.svg?height=500&width=500&text=Background+Pattern');
+            opacity: 0.05;
+            z-index: 1;
+        }
+
+        .role-content {
+            max-width: 800px;
+            margin: 50px auto 0;
+            text-align: left;
+            position: relative;
+            z-index: 2;
+        }
+
+        .role-title {
+            color: #D32F2F;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .role-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .role-text {
+            color: #ccc;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .role-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Power meter */
+        .power-meter {
+            margin-top: 50px;
+        }
+
+        .power-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .power-stat {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .power-stat h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .power-bar-container {
+            width: 100%;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .power-bar {
+            height: 100%;
+            background: #D32F2F;
+            width: 0;
+            transition: width 1.5s ease;
+        }
+
+        .power-value {
+            text-align: right;
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #D32F2F;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #B71C1C;
+            transform: translateY(-5px);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .elder-banner {
+                height: 50vh;
+            }
+
+            .elder-name {
+                font-size: 2rem;
+            }
+
+            .elder-title {
+                font-size: 1rem;
+            }
+
+            .elder-stats {
+                gap: 20px;
+            }
+
+            .elder-stat-value {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .elder-avatar {
+                width: 150px;
+                height: 150px;
+            }
+
+            .elder-details {
+                padding: 100px 20px 30px;
+            }
+
+            .elder-name {
+                font-size: 1.8rem;
+            }
+
+            .abilities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-slide img {
+                height: 300px;
+            }
+
+            .gallery-prev,
+            .gallery-next {
+                padding: 10px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Base Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            color: #D32F2F;
+        }
+
+        .nav-links ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Mobile menu icon */
+        .menu-icon {
+            font-size: 2rem;
+            cursor: pointer;
+            display: none;
+            /* hidden by default */
+        }
+
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: right 0.4s ease;
+            z-index: 9999;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            text-align: center;
+            padding: 0;
+        }
+
+        .mobile-menu ul li {
+            margin: 20px 0;
+        }
+
+        .mobile-menu ul li a {
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu ul li a:hover {
+            color: #D32F2F;
+        }
+
+        .close-icon {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Responsive Behavior */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                /* hide desktop nav */
+            }
+
+            .menu-icon {
+                display: block;
+                /* show hamburger */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>GRANDLINE</h1>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="marines.html">Marines</a></li>
+                <li><a href="pirates.html">Pirates</a></li>
+                <li><a href="world-government.html">World Government</a></li>
+            </ul>
+        </div>
+
+        <div class="menu-icon" id="menu-icon">
+            <i class="fas fa-bars"></i> <!-- hamburger icon -->
+        </div>
+    </nav>
+
+    <!-- Mobile Menu (hidden at first) -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-icon" id="close-icon">
+            <i class="fas fa-times"></i> <!-- cross icon -->
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="marines.html">Marines</a></li>
+            <li><a href="pirates.html">Pirates</a></li>
+            <li><a href="world-government.html">World Government</a></li>
+        </ul>
+    </div>
+
+    </nav>
+
+    <!-- Elder Banner -->
+    <section class="elder-banner" id="elderBanner">
+        <div class="elder-avatar" id="elderAvatar">
+            <img src="Garling.webp" alt="Riyadh">
+        </div>
+    </section>
+
+    <!-- Elder Profile -->
+    <section class="elder-profile">
+        <div class="container">
+
+
+            <div class="elder-details" id="elderDetails">
+                <h2 class="elder-name">Riyadh</h2>
+                <p class="elder-title">The Shadow Crown of the World Government</p>
+
+                <div class="elder-stats">
+                    <div class="elder-stat" data-delay="0">
+                        <span class="elder-stat-value">Unknown</span>
+                        <span class="elder-stat-label">Age</span>
+                    </div>
+                    <div class="elder-stat" data-delay="100">
+                        <span class="elder-stat-value">Mary Geoise</span>
+                        <span class="elder-stat-label">Location</span>
+                    </div>
+
+                    <div class="elder-stat" data-delay="300">
+                        <span class="elder-stat-value">Supreme</span>
+                        <span class="elder-stat-label">Authority</span>
+                    </div>
+                </div>
+
+                <div class="elder-bio">
+                    <p data-delay="0">Where Taib Hasan Alif leads with vision and diplomacy, Riyadh is the blade that
+                        guards the dream from the darkness.
+                        Unseen by the world, unknown to most of history, he is the silent guardian who ensures the
+                        survival of the world order—even if it means sacrificing his own name, reputation, and humanity.
+                    </p>
+                    <p data-delay="200">He does not sit in thrones or address grand assemblies. Riyadh works from the
+                        dark corridors behind the marbled halls of Mary Geoise, striking down threats before they can
+                        even be named.
+                        He is the "Shadow Head" — the one who carries out what cannot be officially sanctioned.
+                        Without Riyadh, Taib’s grand design could crumble.
+                        Without Taib’s light, Riyadh’s darkness would consume him.
+                        Together, they are two sides of the same unbreakable rule: Order at any cost.</p>
+                </div>
+
+                <div class="elder-quote">
+                    "For peace to shine, someone must bear the weight of every necessary sin."
+                </div>
+
+                <!-- Tabs -->
+                <div class="elder-tabs">
+                    <div class="tabs-nav">
+                        <button class="tab-btn active" data-tab="powers">Powers</button>
+                        <button class="tab-btn" data-tab="history">History</button>
+
+                    </div>
+
+                    <div class="tab-content active" id="powers">
+                        <div class="power-meter">
+                            <h3>Power Levels</h3>
+                            <div class="power-grid">
+                                <div class="power-stat">
+                                    <h3>Authority</h3>
+                                    <div class="power-bar-container">
+                                        <div class="power-bar" data-value="90"></div>
+                                    </div>
+                                    <div class="power-value">90%</div>
+                                </div>
+
+                                <div class="power-stat">
+                                    <h3>Combat</h3>
+                                    <div class="power-bar-container">
+                                        <div class="power-bar" data-value="85"></div>
+                                    </div>
+                                    <div class="power-value">85%</div>
+                                </div>
+
+                                <div class="power-stat">
+                                    <h3>Intelligence</h3>
+                                    <div class="power-bar-container">
+                                        <div class="power-bar" data-value="95"></div>
+                                    </div>
+                                    <div class="power-value">95%</div>
+                                </div>
+
+                                <div class="power-stat">
+                                    <h3>Military Strategy</h3>
+                                    <div class="power-bar-container">
+                                        <div class="power-bar" data-value="98"></div>
+                                    </div>
+                                    <div class="power-value">98%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="history">
+                        <p>📍Unknown Era
+                            The Silent Protector Awakens
+                            When Taib’s political genius began reshaping the government’s future, Riyadh quietly emerged
+                            at his side—not as a servant, but as the unseen shield.</p>
+
+                        <p> 📍20 Years Ago
+                            The Secret Wars
+                            While the world enjoyed an era of "peace," Riyadh fought hidden battles—eliminating deep
+                            threats, rogue scientists, forbidden research, and traitorous kings.</p>
+
+                        <p> 📍10 Years Ago
+                            The Twin Thrones Form
+                            Riyadh accepted the role of the "Hidden Crown," allowing Taib to lead visibly, while he
+                            silently enforced stability from the dark. </p>
+
+                        <p>📍Present Day
+                            The Blade of Stability
+                            Riyadh continues his unseen work—defending the new world order not through hope, but through
+                            necessity.
+                            His existence is a whispered legend, a necessary evil carried out in the name of an
+                            everlasting peace.</p>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- Elder Abilities -->
+    <section class="elder-abilities">
+        <div class="container">
+            <div class="section-title">
+                <h2>Abilities & Powers</h2>
+                <div class="underline"></div>
+            </div>
+
+            <div class="abilities-grid">
+                <div class="ability-card" data-delay="100">
+                    <h3><i class="fas fa-skull-crossbones"></i> Silent Annihilation</h3>
+                    <p>Neutralizing entire armed groups without alerting a soul.</p>
+                </div>
+                <div class="ability-card" data-delay="0">
+                    <h3><i class="fas fa-chess-knight"></i> Tactical Mastery</h3>
+                    <p>Reading battlefield psychology and political intentions faster than any admiral.</p>
+                </div>
+
+                <div class="ability-card" data-delay="200">
+                    <h3><i class="fas fa-user-ninja"></i> Ghost Movement</h3>
+                    <p> Appearing and disappearing with no trace—some say even Observation Haki users can't sense him
+                    </p>
+                </div>
+
+                <div class="ability-card" data-delay="300">
+                    <h3><i class="fas fa-bolt"></i> Will Suppression</h3>
+                    <p>A terrifying aura that crushes opponents' spirits before they even think of resisting.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>GRANDLINE</h2>
+                <p>The First One Piece Verse In Bangladesh</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="marines.html">Marines</a></li>
+                    <li><a href="pirates.html">Pirates</a></li>
+                    <li><a href="world-government.html">World Government</a></li>
+                </ul>
+            </div>
+            <div class="footer-newsletter">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for updates</p>
+                <form id="newsletterForm">
+                    <input type="email" placeholder="Your Email" required>
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Grandline - The First One Piece Verse In Bangladesh. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <!-- Dynamic JavaScript for Elder Page -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Show banner with animation
+            setTimeout(() => {
+                document.querySelector('.hero-content').classList.add('visible');
+                document.getElementById('elderBanner').classList.add('loaded');
+            }, 300);
+
+            // Show profile elements with animation
+            setTimeout(() => {
+                document.getElementById('elderAvatar').classList.add('visible');
+            }, 800);
+
+            setTimeout(() => {
+                document.getElementById('elderDetails').classList.add('visible');
+            }, 1200);
+
+            // Animate stats with delay
+            document.querySelectorAll('.elder-stat').forEach(stat => {
+                setTimeout(() => {
+                    stat.classList.add('visible');
+                }, 1500 + parseInt(stat.dataset.delay || 0));
+            });
+
+            // Animate bio paragraphs
+            document.querySelectorAll('.elder-bio p').forEach(p => {
+                setTimeout(() => {
+                    p.classList.add('visible');
+                }, 1800 + parseInt(p.dataset.delay || 0));
+            });
+
+            // Show quote with animation
+            setTimeout(() => {
+                document.querySelector('.elder-quote').classList.add('visible');
+            }, 2200);
+
+            // Animate ability cards on scroll
+            const abilityObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, parseInt(entry.target.dataset.delay || 0));
+                        abilityObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.ability-card').forEach(card => {
+                abilityObserver.observe(card);
+            });
+
+            // Animate role content on scroll
+            const roleObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, parseInt(entry.target.dataset.delay || 0));
+                        roleObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.role-title, .role-text').forEach(item => {
+                roleObserver.observe(item);
+            });
+
+            // Animate power bars when in view
+            const powerObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const bars = document.querySelectorAll('.power-bar');
+                        bars.forEach(bar => {
+                            setTimeout(() => {
+                                bar.style.width = bar.dataset.value + '%';
+                            }, 300);
+                        });
+                        powerObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            powerObserver.observe(document.querySelector('.power-meter'));
+
+            // Tab functionality
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    // Remove active class from all buttons and contents
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+
+                    // Add active class to clicked button
+                    this.classList.add('active');
+
+                    // Show corresponding content
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+            // Image gallery functionality
+            let slideIndex = 0;
+            const slides = document.querySelectorAll('.gallery-slide');
+            const dots = document.querySelectorAll('.gallery-dot');
+            const prevBtn = document.querySelector('.gallery-prev');
+            const nextBtn = document.querySelector('.gallery-next');
+
+            function showSlide(n) {
+                // Reset slide index if out of bounds
+                if (n >= slides.length) slideIndex = 0;
+                if (n < 0) slideIndex = slides.length - 1;
+
+                // Hide all slides
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+
+                // Show current slide
+                slides[slideIndex].classList.add('active');
+                dots[slideIndex].classList.add('active');
+            }
+
+            // Next/previous controls
+            prevBtn.addEventListener('click', () => {
+                slideIndex--;
+                showSlide(slideIndex);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                slideIndex++;
+                showSlide(slideIndex);
+            });
+
+            // Dot controls
+            dots.forEach(dot => {
+                dot.addEventListener('click', function () {
+                    slideIndex = parseInt(this.getAttribute('data-slide'));
+                    showSlide(slideIndex);
+                });
+            });
+
+            // Auto slide change
+            setInterval(() => {
+                slideIndex++;
+                showSlide(slideIndex);
+            }, 5000);
+
+            // Back to top button
+            const backToTopButton = document.getElementById('backToTop');
+
+            window.addEventListener('scroll', function () {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            });
+
+            backToTopButton.addEventListener('click', function () {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+    <script>
+        const menuIcon = document.getElementById('menu-icon');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeIcon = document.getElementById('close-icon');
+
+        menuIcon.addEventListener('click', () => {
+            mobileMenu.style.right = "0";
+        });
+
+        closeIcon.addEventListener('click', () => {
+            mobileMenu.style.right = "-100%";
+        });
+    </script>
+
+</body>
+
+</html>

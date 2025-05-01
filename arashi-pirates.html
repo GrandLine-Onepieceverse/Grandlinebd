@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arashi Pirates - Grandline Bangladesh</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        .crew-profile {
+            margin-top: 4rem;
+        }
+
+        .crew-banner {
+            position: relative;
+            height: 300px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('mysterious-bermuda-triangle-area-with-fantasy-aesthetic.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 3rem;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .crew-emblem {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 5px solid #1E88E5;
+            background: #000;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .crew-emblem img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .crew-details {
+            margin-top: 70px;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .crew-details h2 {
+            color: #1E88E5;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .crew-details .tagline {
+            color: #333;
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .crew-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: #f5f5f5;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-item i {
+            color: #1E88E5;
+            font-size: 1.2rem;
+        }
+
+        .crew-description {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .crew-members-section {
+            margin-top: 4rem;
+        }
+
+        .crew-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .member-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #ddd;
+        }
+
+        .member-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-color: #1E88E5;
+        }
+
+        .member-img {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .member-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6));
+        }
+
+        .member-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .member-card:hover .member-img img {
+            transform: scale(1.1);
+        }
+
+        .member-info {
+            padding: 1.5rem;
+            background: #fff;
+        }
+
+        .member-info h3 {
+            color: #1E88E5;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-info p {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-info .bounty {
+            color: #1E88E5;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .member-info .bounty i {
+            font-size: 1.2rem;
+        }
+
+        .ship-section {
+            margin-top: 4rem;
+            background: #111;
+            padding: 3rem;
+            border-radius: 10px;
+            color: #fff;
+        }
+
+        .ship-section .section-title h2 {
+            color: #fff;
+        }
+
+        .ship-section .underline {
+            background: #1E88E5;
+        }
+
+        .ship-content {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .ship-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .ship-image img {
+            width: 100%;
+            display: block;
+        }
+
+        .ship-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .ship-info h3 {
+            color: #1E88E5;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .ship-info p {
+            color: #ccc;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .ship-features {
+            margin-top: 1.5rem;
+        }
+
+        .ship-features h4 {
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-item i {
+            color: #1E88E5;
+        }
+
+        .abilities-section {
+            margin-top: 4rem;
+        }
+
+        .abilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .ability-card {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border-left: 5px solid #1E88E5;
+        }
+
+        .ability-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .ability-card h3 {
+            color: #1E88E5;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ability-card h3 i {
+            font-size: 1.2rem;
+        }
+
+        .ability-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .rumors-section {
+            margin-top: 4rem;
+            background: #f5f5f5;
+            padding: 3rem;
+            border-radius: 10px;
+        }
+
+        .rumor-list {
+            margin-top: 2rem;
+        }
+
+        .rumor-item {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .rumor-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .rumor-item h3 {
+            color: #1E88E5;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .rumor-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .rumor-source {
+            margin-top: 1rem;
+            font-style: italic;
+            color: #999;
+            font-size: 0.9rem;
+            text-align: right;
+        }
+
+        /* Base Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            color: #D32F2F;
+        }
+
+        .nav-links ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Mobile menu icon */
+        .menu-icon {
+            font-size: 2rem;
+            cursor: pointer;
+            display: none;
+            /* hidden by default */
+        }
+
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: right 0.4s ease;
+            z-index: 9999;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            text-align: center;
+            padding: 0;
+        }
+
+        .mobile-menu ul li {
+            margin: 20px 0;
+        }
+
+        .mobile-menu ul li a {
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu ul li a:hover {
+            color: #D32F2F;
+        }
+
+        .close-icon {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Responsive Behavior */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                /* hide desktop nav */
+            }
+
+            .menu-icon {
+                display: block;
+                /* show hamburger */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>GRANDLINE</h1>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="marines.html">Marines</a></li>
+                <li><a href="pirates.html">Pirates</a></li>
+                <li><a href="world-government.html">World Government</a></li>
+            </ul>
+        </div>
+
+        <div class="menu-icon" id="menu-icon">
+            <i class="fas fa-bars"></i> <!-- hamburger icon -->
+        </div>
+    </nav>
+
+    <!-- Mobile Menu (hidden at first) -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-icon" id="close-icon">
+            <i class="fas fa-times"></i> <!-- cross icon -->
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="marines.html">Marines</a></li>
+            <li><a href="pirates.html">Pirates</a></li>
+            <li><a href="world-government.html">World Government</a></li>
+        </ul>
+    </div>
+
+    </nav>
+
+    <!-- Crew Hero Section -->
+    <section class="hero"
+        style="background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('8036292.jpg');">
+        <div class="hero-content">
+            <h1>ARASHI PIRATES</h1>
+            <h2>The Storm Bringers of East Blue</h2>
+            <p>A crew known for their mastery of weather and sea navigation</p>
+        </div>
+    </section>
+
+    <!-- Crew Profile -->
+    <section class="about">
+        <div class="container">
+            <div class="crew-profile">
+                <div class="crew-banner">
+                    <div class="crew-emblem">
+                        <img src="Red and White Modern Tech Coming Soon Instagram Post (2).png"
+                            alt="Arashi Pirates Emblem">
+                    </div>
+                </div>
+
+                <div class="crew-details">
+                    <h2>Arashi Pirates</h2>
+                    <p class="tagline">"Riders of the Storm"</p>
+
+                    <div class="crew-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-users"></i>
+                            <span>Crew Size: 9 members</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Territory: East Blue</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-certificate"></i>
+                            <span>Total Bounty: 232,000,000 Berries</span>
+                        </div>
+                    </div>
+
+                    <div class="crew-description">
+                        <p>The Arashi Pirates have recently surfaced in the East Blue, led by the elusive and mysterious
+                            Captain Taj.
+                            Little is known about his origins or true intentions, but sightings confirm a growing crew
+                            of skilled and loyal
+                            individuals rallying behind his command. Unlike other pirate groups, the Arashi Pirates
+                            operate with
+                            precision and rarely leave traces behind, suggesting a level of discipline uncommon among
+                            most East Blue
+                            crews. While not currently classified as a major threat, their potential remains under close
+                            observation. Any
+                            information regarding their movements is to be reported immediately</p>
+                    </div>
+                </div>
+
+                <!-- Crew Members -->
+                <div class="crew-members-section">
+                    <div class="section-title">
+                        <h2>Members</h2>
+                        <div class="underline"></div>
+                    </div>
+
+                    <div class="crew-members">
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Captain+Kazuo" alt="Captain Taj">
+                            </div>
+                            <div class="member-info">
+                                <h3>Taj</h3>
+                                <p>Captain</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 45,000,000 Berries</p>
+                            </div>
+                        </div>
+
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Mizuki" alt="Jarin">
+                            </div>
+                            <div class="member-info">
+                                <h3>Jarin</h3>
+                                <p>Navigator</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 62,000,000 Berries</p>
+                            </div>
+                        </div>
+
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Takeshi" alt="Akram">
+                            </div>
+                            <div class="member-info">
+                                <h3>Akram</h3>
+                                <p>Sniper</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 46,000,000 Berries</p>
+                            </div>
+                        </div>
+
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Hana" alt="Forhad">
+                            </div>
+                            <div class="member-info">
+                                <h3>Forhad</h3>
+                                <p>Helmsman</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 18,000,000 Berries</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Hana" alt="Chadni">
+                            </div>
+                            <div class="member-info">
+                                <h3>Chadni</h3>
+                                <p>Archeologist</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 21,000,000 Berries</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Hana" alt="Abir">
+                            </div>
+                            <div class="member-info">
+                                <h3>Abir</h3>
+                                <p>Shipwright</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> None</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Hana" alt="Shishir">
+                            </div>
+                            <div class="member-info">
+                                <h3>Shishir</h3>
+                                <p>Commander</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 10,000,000 Berries</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Hana" alt="Imran">
+                            </div>
+                            <div class="member-info">
+                                <h3>Imran</h3>
+                                <p>Swordsman (Captain in charge)</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 20,000,000 Berries</p>
+                            </div>
+                        </div>
+                        <div class="member-card">
+                            <div class="member-img">
+                                <img src="/placeholder.svg?height=250&width=250&text=Hana" alt="Abu Said">
+                            </div>
+                            <div class="member-info">
+                                <h3>Abu Said</h3>
+                                <p>Cook</p>
+                                <p class="bounty"><i class="fas fa-certificate"></i> 10,000,000 Berries</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ship Section 
+                <div class="ship-section">
+                    <div class="section-title">
+                        <h2>The Tempest Rider</h2>
+                        <div class="underline"></div>
+                    </div>
+
+                    <div class="ship-content">
+                        <div class="ship-image">
+                            <img src="/placeholder.svg?height=400&width=600&text=Tempest+Rider"
+                                alt="The Tempest Rider Ship">
+                        </div>
+                        <div class="ship-info">
+                            <h3>The Tempest Rider</h3>
+                            <p>The Tempest Rider is a modified brigantine with unique adaptations that allow it to sail
+                                through storms that would sink other vessels. Its sails are made from a special material
+                                that can withstand high winds, and its hull is reinforced to handle rough seas.</p>
+                            <p>The most remarkable feature of the ship is its weather deck, equipped with advanced
+                                meteorological instruments that help the crew predict weather patterns with incredible
+                                accuracy. The figurehead depicts a sea dragon riding a wave, with eyes that glow blue
+                                during storms.</p>
+
+                            <div class="ship-features">
+                                <h4>Special Features:</h4>
+                                <div class="features-list">
+                                    <div class="feature-item">
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>Storm-resistant Sails</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>Weather Prediction System</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>Reinforced Hull</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>Lightning Rod System</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>Underwater Stabilizers</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>Fog Generation System</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- Abilities Section 
+                <div class="abilities-section">
+                    <div class="section-title">
+                        <h2>Crew Specialties</h2>
+                        <div class="underline"></div>
+                    </div>
+
+                    <div class="abilities-grid">
+                        <div class="ability-card">
+                            <h3><i class="fas fa-cloud-sun-rain"></i> Weather Prediction</h3>
+                            <p>The Arashi Pirates have developed an uncanny ability to predict weather patterns with
+                                near-perfect accuracy. This gives them a significant advantage at sea, allowing them to
+                                navigate safely through storms and use adverse weather conditions to their advantage in
+                                battle.</p>
+                        </div>
+
+                        <div class="ability-card">
+                            <h3><i class="fas fa-wind"></i> Storm Navigation</h3>
+                            <p>Unlike most crews who avoid storms, the Arashi Pirates have mastered the art of sailing
+                                through them. Their ship and crew are specially trained to not only survive but thrive
+                                in conditions that would be deadly for others.</p>
+                        </div>
+
+                        <div class="ability-card">
+                            <h3><i class="fas fa-bolt"></i> Weather-based Combat</h3>
+                            <p>Many crew members utilize weapons and fighting styles that incorporate weather elements,
+                                from Mizuki's weather vane staff to Takeshi's electric gauntlets. They are particularly
+                                dangerous during storms, when their abilities are enhanced.</p>
+                        </div>
+
+                        <div class="ability-card">
+                            <h3><i class="fas fa-compass"></i> Superior Navigation</h3>
+                            <p>The crew includes some of the best navigators from the East Blue, capable of charting
+                                courses through treacherous waters and finding the fastest routes between destinations.
+                            </p>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- Territories Section 
+                <div class="rumors-section">
+                    <div class="section-title">
+                        <h2>Known Territories</h2>
+                        <div class="underline"></div>
+                    </div>
+
+                    <div class="rumor-list">
+                        <div class="rumor-item">
+                            <h3>Storm Island</h3>
+                            <p>A small island in the eastern part of East Blue that experiences unusual weather
+                                patterns. The Arashi Pirates use it as their main base, protected by near-constant
+                                storms that make it difficult for Marine ships to approach.</p>
+                            <p class="rumor-source">Location: Eastern East Blue, coordinates kept secret</p>
+                        </div>
+
+                        <div class="rumor-item">
+                            <h3>Weathervane Port</h3>
+                            <p>A port town that pays tribute to the Arashi Pirates in exchange for weather predictions
+                                and protection from other pirate crews. The town has prospered due to this arrangement,
+                                as the accurate weather forecasts have significantly improved their fishing and trading
+                                operations.</p>
+                            <p class="rumor-source">Location: Northeastern East Blue</p>
+                        </div>
+
+                        <div class="rumor-item">
+                            <h3>The Calm Belt Passage</h3>
+                            <p>The Arashi Pirates claim to have discovered a safe passage through a section of the Calm
+                                Belt, though this is widely regarded as impossible. If true, it would give them a
+                                significant advantage in escaping Marine pursuit.</p>
+                            <p class="rumor-source">Status: Unconfirmed</p>
+                        </div>
+                    </div>
+                </div> -->
+
+
+
+                <script src="script.js"></script>
+                <script>
+                    const menuIcon = document.getElementById('menu-icon');
+                    const mobileMenu = document.getElementById('mobileMenu');
+                    const closeIcon = document.getElementById('close-icon');
+                    
+                    menuIcon.addEventListener('click', () => {
+                        mobileMenu.style.right = "0";
+                    });
+                    
+                    closeIcon.addEventListener('click', () => {
+                        mobileMenu.style.right = "-100%";
+                    });
+                    </script>
+                    
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>GRANDLINE</h2>
+                <p>The First One Piece Verse In Bangladesh</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="marines.html">Marines</a></li>
+                    <li><a href="pirates.html">Pirates</a></li>
+                    <li><a href="world-government.html">World Government</a></li>
+                </ul>
+            </div>
+            <div class="footer-newsletter">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for updates</p>
+                <form id="newsletterForm">
+                    <input type="email" placeholder="Your Email" required>
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <a href="Developer.html">
+                <p>Developed by - Md.Muntahi Islam Alif</p>
+            </a>
+        </div>
+    </footer>
+</body>
+
+</html>
